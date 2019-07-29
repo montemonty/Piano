@@ -1,0 +1,67 @@
+<!--C key = A, C# = W, and so on... -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Piano</title>
+    <link rel="stylesheet" href="piano.css">
+</head>
+
+<body>
+
+    <ul class="keys">
+
+
+        <li data-key="83" class="white a"><span>A</span></li>
+        <li data-key="69" class="black bb"><span>Bb</span></li>
+        <li data-key="68" class="white b"><span>B</span></li>
+        <li data-key="70" class="white c"><span>C</span></li>
+        <li data-key="84" class="black cs"><span>C#</span></li>
+        <li data-key="71" class="white d"><span>D</span></li>
+        <li data-key="89" class="black ds"><span>D#</span></li>
+        <li data-key="72" class="white e"><span>E</span></li>
+        <li data-key="74" class="white f"><span>F</span></li>
+        <li data-key="73" class="black fs"><span>F#</span></li>
+        <li data-key="75" class="white g"><span>G</span></li>
+    </ul>
+
+    <audio data-key="83" src="a.wav"></audio>
+    <audio data-key="69" src="bb.wav"></audio>
+    <audio data-key="68" src="b.wav"></audio>
+    <audio data-key="70" src="c.wav"></audio>
+    <audio data-key="84" src="csharp.wav"></audio>
+    <audio data-key="71" src="d.wav"></audio>
+    <audio data-key="89" src="eb.wav"></audio>
+    <audio data-key="72" src="e.wav"></audio>
+    <audio data-key="74" src="f.wav"></audio>
+    <audio data-key="73" src="fsharp.wav"></audio>
+    <audio data-key="75" src="g.wav"></audio>
+
+    <script>
+
+        function removeTransition(e) {
+            if (e.propertyName !== 'transform') return;
+            e.target.classList.remove('playing');
+        }
+
+        function playSound(e) {
+            const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+            const key = document.querySelector(`li[data-key="${e.keyCode}"]`);
+            if (!audio) return;
+
+            key.classList.add('playing');
+            audio.currentTime = 0;
+            audio.play();
+        }
+
+        const keys = Array.from(document.querySelectorAll('.ul'));
+        keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+        window.addEventListener('keydown', playSound);
+    </script>
+
+</body>
+
+</html>
